@@ -14,13 +14,16 @@ export class Triangle implements Figure {
     private c: number,
   ) {
     if (a <= 0 || b <= 0 || c <= 0) {
-      throw new Error('should check whether it is a triangle');
+      throw new Error('Side lengths must be greater than zero');
     }
 
     const bigSide: number = Math.max(a, b, c);
 
     if (a + b + c - bigSide <= bigSide) {
-      throw new Error("sides 1, 2 and 3 can't form a triangle");
+      throw new Error(
+        // eslint-disable-next-line max-len
+        'The provided side lengths do not satisfy the triangle inequality theorem',
+      );
     }
   }
 
@@ -40,7 +43,7 @@ export class Circle implements Figure {
     private r: number,
   ) {
     if (r <= 0) {
-      throw new Error('error');
+      throw new Error('Radius must be greater than zero');
     }
   }
 
@@ -59,8 +62,8 @@ export class Rectangle implements Figure {
     private a: number,
     private b: number,
   ) {
-    if (a && b <= 0) {
-      throw new Error('error');
+    if (a <= 0 || b <= 0) {
+      throw new Error('Side lengths must be greater than zero');
     }
   }
 
@@ -71,6 +74,6 @@ export class Rectangle implements Figure {
   }
 }
 
-export function getInfo(figure): string {
+export function getInfo(figure: Figure): string {
   return `A ${figure.color} ${figure.shape} - ${figure.getArea()}`;
 }
